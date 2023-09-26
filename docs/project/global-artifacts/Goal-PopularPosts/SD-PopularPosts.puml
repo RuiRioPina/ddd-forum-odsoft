@@ -1,0 +1,37 @@
+@startuml
+actor User
+participant Client
+participant WebServer
+participant PostRouter
+participant Middleware
+participant GetPopularPostsController
+
+User -> Client: Click on view 5 most popular posts
+activate User
+activate Client
+
+Client -> WebServer: GET /post/popular
+deactivate Client
+
+activate WebServer
+
+WebServer -> PostRouter: Route HTTP Request to /post/popular
+activate PostRouter
+
+PostRouter -> Middleware: Apply Middleware (includeDecodedTokenIfExists)
+activate Middleware
+Middleware -> GetPopularPostsController: Execute Middleware
+activate GetPopularPostsController
+Middleware --> PostRouter: Continue Request Handling
+deactivate Middleware
+
+PostRouter -> GetPopularPostsController: Execute getPopularPostsController
+deactivate GetPopularPostsController
+PostRouter --> WebServer: Get Response from Controller
+deactivate PostRouter
+
+WebServer --> Client: Send HTTP Response with Popular Posts
+deactivate WebServer
+deactivate Client
+User --> User: Handle Response
+@enduml
