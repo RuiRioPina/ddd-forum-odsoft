@@ -2,7 +2,7 @@
  *
  * @remarks
  * This code is based on the project {@link https://github.com/jmfiola/jest-api-test-typescript-example}.
-*/
+ */
 import axios, {
   AxiosInstance,
   AxiosRequestConfig,
@@ -14,7 +14,7 @@ import { stringify } from "yaml";
 
 import https from "https";
 
-import ConfigHandler from "../config/ConfigHandler";
+import ConfigHandler from "../config/configHandler";
 
 const config = ConfigHandler.getInstance();
 const log = new Logger({
@@ -226,8 +226,9 @@ export class RestClient {
     if (isSet(data)) {
       const jsonData = stringify(data);
       // We don't want to log anything that isn't json data
-      logRecord = `${logRecord}\nData: ${jsonData === undefined ? "Some data, not JSON!" : jsonData
-        }`;
+      logRecord = `${logRecord}\nData: ${
+        jsonData === undefined ? "Some data, not JSON!" : jsonData
+      }`;
     }
     return logRecord;
   }

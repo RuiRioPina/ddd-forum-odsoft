@@ -2,11 +2,11 @@
  *
  * @remarks
  * This code is based on the project {@link https://github.com/jmfiola/jest-api-test-typescript-example}.
-*/
+ */
 import { Logger } from "tslog";
 
-import ConfigHandler from "../../config/ConfigHandler";
-import  { RestClient }  from "../../restClient/RestClient";
+import ConfigHandler from "../../config/configHandler";
+import { RestClient } from "../../restClient/RestClient";
 
 export abstract class AEndpoint {
   protected constructor(serviceUrl: string, serviceName: string) {

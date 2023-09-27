@@ -2,9 +2,9 @@
  *
  * @remarks
  * This code is based on the project {@link https://github.com/jmfiola/jest-api-test-typescript-example}.
-*/
+ */
 import { Logger } from "tslog";
-import ConfigHandler from "./config/ConfigHandler";
+import ConfigHandler from "./config/configHandler";
 
 import Users from "./endpoints/Users";
 
@@ -24,21 +24,20 @@ let refreshToken: string;
 describe("Users endpoint", (): void => {
   beforeAll(async (): Promise<void> => {
     users = new Users();
-    
+
     log.debug("1. Users Base url: " + users.getBaseUrl());
   });
 
   it("Post - Create User", async (): Promise<void> => {
     const response = await users.post();
 
-    expect(response.status).toBe(200);    
+    expect(response.status).toBe(200);
   });
 
   it("Post Login", async (): Promise<void> => {
     const response = await users.postLogin();
     expect(response.status).toBe(200);
-    
-    
+
     expect(response.data.accessToken).toBeDefined();
     expect(response.data.refreshToken).toBeDefined();
 
@@ -51,12 +50,11 @@ describe("Users endpoint", (): void => {
 
     const response = await users.getMe(accessToken);
     expect(response.status).toBe(200);
-    
-    
+
     expect(response.data.user).toBeDefined();
     expect(response.data.user.username).toBeDefined();
     expect(response.data.user.username).toContain("atb");
-  });  
+  });
 });
 
 export default {};
