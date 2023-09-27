@@ -2,15 +2,15 @@
  *
  * @remarks
  * This code is based on the project {@link https://github.com/jmfiola/jest-api-test-typescript-example}.
-*/
+ */
 import { Logger } from "tslog";
 
-import ConfigHandler from "../../config/ConfigHandler";
-import  { RestClient }  from "../../restClient/RestClient";
+import ConfigHandler from "../../config/configHandler";
+import { RestClient } from "../../restClient/RestClient";
 
 export abstract class AEndpoint {
   protected constructor(serviceUrl: string, serviceName: string) {
-    const baseUrl: string = this.config.environmnetConfig.api_base_url;
+    const baseUrl: string = this.config.environmentConfig.api_base_url;
     this.url = baseUrl + serviceUrl;
     this.restClient = new RestClient(this.url);
     this.serviceName = serviceName;
@@ -22,9 +22,9 @@ export abstract class AEndpoint {
   protected config = ConfigHandler.getInstance();
 
   protected log: Logger = new Logger({
-    minLevel: this.config.environmnetConfig.log_level,
+    minLevel: this.config.environmentConfig.log_level,
     dateTimeTimezone:
-      this.config.environmnetConfig.time_zone ||
+      this.config.environmentConfig.time_zone ||
       Intl.DateTimeFormat().resolvedOptions().timeZone,
   });
 

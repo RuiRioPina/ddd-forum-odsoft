@@ -2,7 +2,7 @@
  *
  * @remarks
  * This code is based on the project {@link https://github.com/jmfiola/jest-api-test-typescript-example}.
-*/
+ */
 import { readFileSync } from "fs";
 import { TLogLevelName } from "tslog";
 
@@ -17,7 +17,7 @@ export class ConfigHandler {
 
   public environment: string;
 
-  public environmnetConfig: {
+  public environmentConfig: {
     log_level: TLogLevelName;
     time_zone: string;
     api_base_url: string;
@@ -48,7 +48,7 @@ export class ConfigHandler {
   private setEnvironmentConfig(environment: string): void {
     this.ensureEnvironmentIsValid(environment);
     try {
-      this.environmnetConfig = YAML.parse(
+      this.environmentConfig = YAML.parse(
         readFileSync("src/api_test/config/config-api.yaml", "utf8")
       )[environment];
     } catch (error) {
