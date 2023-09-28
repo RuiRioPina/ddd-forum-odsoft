@@ -1,0 +1,89 @@
+@startuml
+actor User
+participant Client
+participant WebServer
+participant PostRouter
+participant Middleware
+participant GetPopularPostsController
+participant GetPopularPosts
+participant PostRepo
+participant GetPopularPostsRequestDTO
+participant PostDetailsMap
+participant GetPopularPostsResponseDTO
+
+  
+
+User -> Client: Click on view 5 most popular posts
+activate User
+activate Client
+
+Client -> WebServer: GET /post/popular
+deactivate Client
+
+activate WebServer
+
+
+WebServer -> PostRouter: Route HTTP Request to /post/popular
+deactivate WebServer
+
+activate PostRouter
+
+PostRouter -> Middleware: Apply Middleware (includeDecodedTokenIfExists)
+activate Middleware
+Middleware -> GetPopularPostsController: Execute Middleware
+deactivate Middleware
+activate GetPopularPostsController
+
+GetPopularPostsController --> GetPopularPostsRequestDTO: dto: Convert to DTO
+activate GetPopularPostsRequestDTO
+GetPopularPostsRequestDTO --> GetPopularPostsController: dto: Response DTO
+deactivate GetPopularPostsRequestDTO
+
+GetPopularPostsController -> GetPopularPosts: Execute useCase (dto)
+deactivate GetPopularPostsController
+activate GetPopularPosts
+
+GetPopularPosts -> GetPopularPosts: Fetch Popular Posts
+
+
+GetPopularPosts -> PostRepo: Fetch Post Details
+activate PostRepo
+GetPopularPosts --> GetPopularPosts: Result from useCase
+deactivate PostRepo
+
+GetPopularPosts -> PostDetailsMap: Convert Post Details
+activate PostDetailsMap
+PostDetailsMap --> GetPopularPosts: Converted Post Details
+deactivate PostDetailsMap
+
+GetPopularPosts --> GetPopularPostsResponseDTO: Convert to Response DTO
+activate GetPopularPostsResponseDTO
+GetPopularPostsResponseDTO --> GetPopularPosts: Response DTO
+deactivate GetPopularPostsResponseDTO
+
+GetPopularPosts --> GetPopularPostsController
+
+deactivate GetPopularPosts
+activate GetPopularPostsController
+
+GetPopularPostsController -> PostRouter: Send Response (with DTO)
+deactivate GetPopularPostsController
+
+deactivate GetPopularPostsController
+
+deactivate GetPopularPosts
+
+PostRouter --> WebServer: Get Response from Controller
+deactivate GetPopularPostsController
+
+deactivate PostRouter
+
+activate WebServer
+WebServer --> Client: Send HTTP Response with Popular Posts
+deactivate WebServer
+
+activate Client
+Client --> User: Views Response
+deactivate Client
+
+@enduml
