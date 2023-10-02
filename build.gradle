@@ -1,3 +1,49 @@
 plugins {
-  id "com.github.node-gradle.node" version "7.0.0"
+    id "com.github.node-gradle.node" version "7.0.0"
+}
+
+node {
+    version = '12.22.12'
+    npmVersion = '6.14.16'
+    download = true
+}
+
+//Fazer as partes de build dos tests nos Jenkins
+
+task startContainers(type: Exec) {
+    commandLine 'docker-compose', 'up', '-d'
+}
+
+task createDatabase(type: Exec) {
+    dependsOn startContainers
+
+    commandLine 'npm', 'run', 'db:create:dev'
+    commandLine 'npm', 'run', 'migrate:dev'
+}
+
+task startBackend(type: Exec) {
+    dependsOn createDatabase
+    commandLine 'npm', 'run', 'start:dev'
+}
+
+task runUnitTests(type: NodeTask) {
+    script = file('node_modules/jest/bin/jest.js')
+    args = ['--config', 'jest.config.js', '--testPathIgnorePatterns=api']
+}
+
+task generateUnitTestsCoverageReport(type: NodeTask) {
+    dependsOn runUnitTests
+    commandLine ["--coverage", "--coverageReporters=text,html,json"]
+}
+
+task runApiTests(type: NodeTask) {
+    dependsOn createDatabase
+    script = file('node_modules/jest/bin/jest.js')
+    args = ['--runInBand', '--testPathPattern=api']
+}
+
+task generateApiTestsCoverageReport(type: NodeTask) {
+    dependsOn runApiTests
+    script = file('node_modules/jest/bin/jest.js')
+    args = ['--coverage', '--coverageReporters=html', '--runInBand', '--testPathPattern=api']
 }
