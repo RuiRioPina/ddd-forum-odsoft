@@ -34,7 +34,7 @@ task runUnitTests(type: NodeTask) {
 task generateUnitTestsCoverageReport(type: NodeTask) {
     dependsOn runUnitTests
     script = file('node_modules/jest/bin/jest.js')
-    args = ["--coverage", "--coverageReporters=text,html,json"]
+    args = ['--coverage', '--testPathIgnorePatterns=api', '--coverageReporters=text,html,json']
 }
 
 task runApiTests(type: NodeTask) {
