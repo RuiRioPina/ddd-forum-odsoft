@@ -11,6 +11,7 @@ node {
 //Fazer as partes de build dos tests nos Jenkins
 
 task startContainers(type: Exec) {
+    commandLine 'docker-compose', 'down'
     commandLine 'docker-compose', 'up', '-d'
 }
 
@@ -26,21 +27,15 @@ task startBackend(type: Exec) {
     commandLine 'npm', 'run', 'start:dev'
 }
 
-task runUnitTests(type: NodeTask) {
+task runUnitTestsAndGenerateCoverageReport(type: NodeTask) {
     script = file('node_modules/jest/bin/jest.js')
-    args = ['--config', 'jest.config.js', '--testPathIgnorePatterns=api']
+    args = ['--config', 'jest.config.js', '--testPathIgnorePatterns=api', '--coverageReporters=text,html,json']
 }
 
-task generateUnitTestsCoverageReport(type: NodeTask) {
-    dependsOn runUnitTests
-    script = file('node_modules/jest/bin/jest.js')
-    args = ['--coverage', '--testPathIgnorePatterns=api', '--coverageReporters=text,html,json']
-}
-
-task runApiTests(type: NodeTask) {
+task runApiTestsAndGenerateCoverageReport(type: NodeTask) {
     dependsOn createDatabase
     script = file('node_modules/jest/bin/jest.js')
-    args = ['--runInBand', '--testPathPattern=api']
+    args = ['--coverage', '--coverageReporters=html', '--runInBand', '--testPathPattern=api']
 }
 
 task generateApiTestsCoverageReport(type: NodeTask) {
