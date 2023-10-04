@@ -38,8 +38,3 @@ task runApiTestsAndGenerateCoverageReport(type: NodeTask) {
     args = ['--coverage', '--coverageReporters=html', '--runInBand', '--testPathPattern=api']
 }
 
-task generateApiTestsCoverageReport(type: NodeTask) {
-    dependsOn runApiTests
-    script = file('node_modules/jest/bin/jest.js')
-    args = ['--coverage', '--coverageReporters=html', '--runInBand', '--testPathPattern=api']
-}
