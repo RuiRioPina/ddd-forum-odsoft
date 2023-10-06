@@ -38,3 +38,7 @@ task runApiTestsAndGenerateCoverageReport(type: NodeTask) {
     args = ['--coverage', '--coverageReporters=html', '--runInBand', '--testPathPattern=api']
 }
 
+task docsGeneration(type: NodeTask) {
+    script = file('node_modules/jsdoc/jsdoc.js')
+    args = ['-c', 'jsdoc.json']
+}
