@@ -23,7 +23,7 @@
     "start": "node dist/index",
     "test": "jest",
     "test:dev": "jest --watchAll",
-    "testWithCoverage": "jest --coverage --coverageReporters=\"text\" --coverageReporters=\"html\" --coverageReporters=\"json\"",
+    "testWithCoverage": "jest --testResultsProcessor ./node_modules/jest-junit --coverage --coverageDirectory=coverage",
     "test:api": "npm run db:delete:dev && npm run db:create:dev && npm run migrate:dev && jest --testResultsProcessor ./node_modules/jest-junit --coverage --coverageDirectory=coverage --runInBand --testPathPattern=api"
   },
   "husky": {
