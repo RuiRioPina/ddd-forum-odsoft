@@ -29,7 +29,7 @@ task startBackend(type: Exec) {
 
 task runUnitTestsAndGenerateCoverageReport(type: NodeTask) {
     script = file('node_modules/jest/bin/jest.js')
-    args = ['--config', 'jest.config.js', '--testPathIgnorePatterns=api', '--coverageReporters=text,html,json']
+    args = ['--config', 'jest.config.js', '--testPathIgnorePatterns=api', '--testResultsProcessor', './node_modules/jest-junit', '--coverage', '--coverageDirectory=coverage']
 }
 
 task runApiTestsAndGenerateCoverageReport(type: NodeTask) {

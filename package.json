@@ -24,7 +24,7 @@
     "test": "jest",
     "test:dev": "jest --watchAll",
     "testWithCoverage": "jest --coverage --coverageReporters=\"text\" --coverageReporters=\"html\" --coverageReporters=\"json\"",
-    "test:api": "npm run db:delete:dev && npm run db:create:dev && npm run migrate:dev && jest --coverage --coverageReporters=\"html\" --runInBand --testPathPattern=api"
+    "test:api": "npm run db:delete:dev && npm run db:create:dev && npm run migrate:dev && jest --testResultsProcessor ./node_modules/jest-junit --coverage --coverageDirectory=coverage --runInBand --testPathPattern=api"
   },
   "husky": {
     "hooks": {
@@ -95,6 +95,9 @@
     "jest-html-reporter": "^3.0.0"
   },
   "jest": {
+     "collectCoverageFrom": [ "**/*.{ts,tsx}", "!**/node_modules/**", "!**/build/**", "!**/definitionfiles/**", "!**/WebWrokers/**", "!**/*.mock.ts", "!src/setupTests.ts" ], 
+   "coverageReporters": [ "lcov", "text" ] }, 
+   "jest-junit": { "suiteName": "jest tests", "output": "coverage/junit.xml", "classNameTemplate": "{classname} - {title}", "titleTemplate": "{classname} - {title}", "ancestorSeparator": " > ", "usePathForSuiteName": "true" },
     "testEnvironment": "node",
     "transform": {
       "^.+\\.ts$": "ts-jest"
@@ -137,4 +140,3 @@
       "/dist/"
     ]
   }
-}
