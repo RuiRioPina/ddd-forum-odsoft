@@ -65,6 +65,7 @@
     "graphql-iso-date": "^3.6.1",
     "helmet": "^3.21.1",
     "jest": "^24.9.0",
+    "jest-junit": "^16.0.0",
     "jsdom": "^15.1.1",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
@@ -95,48 +96,67 @@
     "jest-html-reporter": "^3.0.0"
   },
   "jest": {
-     "collectCoverageFrom": [ "**/*.{ts,tsx}", "!**/node_modules/**", "!**/build/**", "!**/definitionfiles/**", "!**/WebWrokers/**", "!**/*.mock.ts", "!src/setupTests.ts" ], 
-   "coverageReporters": [ "lcov", "text" ] }, 
-   "jest-junit": { "suiteName": "jest tests", "output": "coverage/junit.xml", "classNameTemplate": "{classname} - {title}", "titleTemplate": "{classname} - {title}", "ancestorSeparator": " > ", "usePathForSuiteName": "true" },
-    "testEnvironment": "node",
-    "transform": {
-      "^.+\\.ts$": "ts-jest"
-    },
-    "coverageReporters": [
-      "json",
-      "lcov",
-      "text",
-      "clover"
-    ],
-    "coverageDirectory": "coverage",
-    "collectCoverage": true,
     "collectCoverageFrom": [
-      "src/**/*.ts"
+      "**/*.{ts,tsx}",
+      "!**/node_modules/**",
+      "!**/build/**",
+      "!**/definitionfiles/**",
+      "!**/WebWrokers/**",
+      "!**/*.mock.ts",
+      "!src/setupTests.ts"
     ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/"
-    ],
-    "reporters": [
-      "default",
-      [
-        "jest-html-reporters",
-        {
-          "publicPath": "./reports",
-          "filename": "report.html",
-          "expand": true
-        }
-      ]
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/dist/"
+    "coverageReporters": [
+      "lcov",
+      "text"
     ]
-  }
+  },
+  "jest-junit": {
+    "suiteName": "jest tests",
+    "output": "coverage/junit.xml",
+    "classNameTemplate": "{classname} - {title}",
+    "titleTemplate": "{classname} - {title}",
+    "ancestorSeparator": " > ",
+    "usePathForSuiteName": "true"
+  },
+  "testEnvironment": "node",
+  "transform": {
+    "^.+\\.ts$": "ts-jest"
+  },
+  "coverageReporters": [
+    "json",
+    "lcov",
+    "text",
+    "clover"
+  ],
+  "coverageDirectory": "coverage",
+  "collectCoverage": true,
+  "collectCoverageFrom": [
+    "src/**/*.ts"
+  ],
+  "coveragePathIgnorePatterns": [
+    "/node_modules/"
+  ],
+  "reporters": [
+    "default",
+    [
+      "jest-html-reporters",
+      {
+        "publicPath": "./reports",
+        "filename": "report.html",
+        "expand": true
+      }
+    ]
+  ],
+  "moduleFileExtensions": [
+    "ts",
+    "tsx",
+    "js",
+    "jsx",
+    "json",
+    "node"
+  ],
+  "testPathIgnorePatterns": [
+    "/node_modules/",
+    "/dist/"
+  ]
+}
