@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><p align="center">
+ <img src="https://user-images.githubusercontent.com/6892666/67032637-fc237200-f0e1-11e9-8a46-f5d655e71962.png"/>
+</p>
+<h1 align="center">DDDForum.com</h1>
+<p align="center">
+ <a href="https://circleci.com/gh/stemmlerjs/ddd-forum"><img src="https://circleci.com/gh/circleci/circleci-docs.svg?style=svg"></a>
+ <a href="#contributors"><img src="https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square"></a>
+</p>
+<blockquote>
+<p>A <a href="https://khalilstemmler.com/articles/solid-principles/solid-typescript/">SOLID</a> hackernews-inspired forum site built with TypeScript using the <a href="https://khalilstemmler.com/articles/software-design-architecture/organizing-app-logic/">clean architecture</a> and <a href="https://khalilstemmler.com/articles/domain-driven-design-intro/">DDD best practices</a>.</p>
+</blockquote>
+<p><img src="https://user-images.githubusercontent.com/6892666/67032446-9931db00-f0e1-11e9-894d-7bccd240c851.png" alt="DDDForum"></p>
+<h2>About</h2>
+<p>DDDForum.com is the application that we build in <a href="https://solidbook.io">solidbook.io - The Software Design and Architecture Handbook</a>.</p>
+<h2>Team's Project Technical Documentation</h2>
+<p>You may find a template for the project technical documentation in <a href="docs/readme.md">docs/readme.md</a>
+You should follow this examples as a template for your own work.</p>
+<h2>Documentation</h2>
+<p><a href="README-original.md">Original Readme file</a></p>
+<p><a href="README-dyarleniber.md">Readme file from dyarleniber</a></p>
+<h2>Running the project</h2>
+<ol>
+<li>Install and start <a href="https://docs.docker.com/compose/gettingstarted/">Docker</a> if you haven't already.</li>
+<li>Copy the <code>.env</code> template file. Feel free to change passwords and app secrets.</li>
+</ol>
+<pre class="prettyprint source lang-bash"><code>cp .env.template .env
+</code></pre>
+<ol start="3">
+<li>Build and run the image to run the backend services.</li>
+</ol>
+<pre class="prettyprint source lang-bash"><code>docker-compose up
+</code></pre>
+<ol start="4">
+<li>Open up an additional console and then run:</li>
+</ol>
+<pre class="prettyprint source lang-bash"><code>npm run setup:dev
+npm run start:both
+</code></pre>
+<p>You can visit the app by going to <code>http://localhost:3000</code>.</p>
+<h3>Demo</h3>
+<p><a href="https://dddforum.com">You can visit the site here</a>.</p>
+<blockquote>
+<p><code>Note</code>: It's currently deployed on free tier Heroku, which has some undesirable side-effects like shutting off the server during periods of inactivity. So if it's down for you, refresh a couple of times. Thinking about migrating this to a serverless architecture later on.</p>
+</blockquote>
+<h2>Technical Notes (ISEP)</h2>
+<h3>Tool Dependencies - Very Important!</h3>
+<p>This project requires the following tools to be present in your system.</p>
+<p><strong>Use node version 12.22.12</strong></p>
+<p>The use of this node version is mandatory
+You an use <strong>nvm</strong> to manage several node version in your system (see https://github.com/nvm-sh/nvm)</p>
+<p><strong>Python</strong>
+You may have to install <strong>python v2.7</strong> in your system (see https://www.python.org/)</p>
+<h3>Using the API</h3>
+<p>Examples of using the API (without authentication, using postman)</p>
+<ul>
+<li>
+<p>Get popular posts:
+GET http://localhost:5001/api/v1/posts/popular</p>
+</li>
+<li>
+<p>Get new posts:
+GET http://localhost:5001/api/v1/posts/recent</p>
+</li>
+<li>
+<p>Get post by slug:
+GET http://localhost:5001/api/v1/posts/?slug=9526372-gosto-muito-de-dd</p>
+</li>
+<li>
+<p>Get comments by slug:
+GET http://localhost:5001/api/v1/comments/?slug=9526372-gosto-muito-de-dd</p>
+</li>
+<li>
+<p>Login
+POST http://localhost:5001/api/v1/users/login
+body:
+{
+&quot;username&quot;: &quot;user&quot;,
+&quot;password&quot;: &quot;password&quot;
+}
+return:
+{
+&quot;accessToken&quot;: &quot;...&quot;,
+&quot;refreshToken&quot;: &quot;...&quot;
+}
+You can then use the &quot;accessToken&quot; for actions that require authentication, by passing the value of the accessToken in a header named &quot;Authentication&quot;. For example:</p>
+</li>
+<li>
+<p>Get Me
+GET http://localhost:5001/api/v1/users/me
+Headers[
+...
+Authorization: accessToken
+]
+Response:
+{
+&quot;user&quot;: {
+&quot;username&quot;: &quot;atb&quot;,
+&quot;isEmailVerified&quot;: false,
+&quot;isAdminUser&quot;: false,
+&quot;isDeleted&quot;: false
+}
+}</p>
+</li>
+</ul>
+<h3>How to Admin da database</h3>
+<ul>
+<li>open browser use localhost:8080</li>
+<li>use:
+<ul>
+<li>system: MySQL</li>
+<li>server: mysql</li>
+<li>username: tonysoprano</li>
+<li>pass: 12345678</li>
+<li>db name: data_dev</li>
+</ul>
+</li>
+</ul>
+<h3>How to Run Tests</h3>
+<p>To run tests type: npm run test</p>
+<p>Existing unit tests:</p>
+<ul>
+<li>src/shared/core/Guard.spec.ts</li>
+<li>src/modules/forum/domain/postSlug.spec.ts</li>
+<li>src/modules/forum/domain/services/postService.spec.ts</li>
+</ul>
+<p>The existing tests verify some services in the domain layer. The domain layer has no dependency on the other layers, so there is no need for mocking. The tests can be executed without any dependencies (e.g., database, etc.)</p>
+<h3>How to Debug</h3>
+<ul>
+<li>start the services with <em>docker-compose up</em></li>
+<li>To debug the backend in VSCode go to the tab &quot;Run and Debug&quot;, select &quot;Debug TypeScript in Node.js&quot; from the dropdown list and click the play button (this will execute the configuration with the same nsame that is located in the launch.json file (<em>.vscode/launch.json</em>))</li>
+<li>start the front-end with <em>npm run  start:public</em></li>
+<li>open in browser: <em>localhost:3000</em></li>
+</ul>
+<h3>API Tests</h3>
+<p>These tests are not part of the base project. They were added by the team to test the API. The tests are in the folder <em>src/api_test</em>.</p>
+<p>The tests are based on the project https://github.com/jmfiola/jest-api-test-typescript-example. <strong>The tests are executed against the running docker containers as well as the backend</strong>. These must be running. It is not necessary to execute the frontend to run these tests. The tests are executed in sequence, so they are not independent. The tests are executed in the order they are defined in the file (this is why we need to use the <em>--runInBand</em> jest option).</p>
+<p>Before running API tests, you must &quot;clear&quot; all the existing data and run the containers and the backend. This will ensure that the system is always at the same state when the tests area executed (i.e., an empty database). The command that runs the API tests is <em>npm run test:api</em> and it already does all the necessary steps (see the command in package.json).</p>
+<p><strong>0. Add Test Report Support</strong></p>
+<p>npm install jest-html-reporter@3.0.0 --save-dev</p>
+<p><strong>1. Before Running Tests</strong></p>
+<p>Start the containers:</p>
+<pre><code>docker-compose up
+</code></pre>
+<p>Create the database:</p>
+<pre><code>npm run db:create:dev
+npm run migrate:dev 
+</code></pre>
+<p>And also run the backend:</p>
+<pre><code>npm run start:dev
+</code></pre>
+<p><strong>2. Running Tests</strong></p>
+<p><strong>a)</strong> To run only API tests (this will delete the database and recreate it, before running the tests; no need for step 3):</p>
+<pre><code>npm run test:api
+</code></pre>
+<p>A report will be generated in report.html. Coverage report will be generated in coverage/index.html. <em>Note that coverage report only covers code of the tests, it does not cover code of teh backend executed because we called the API.</em></p>
+<p><strong>b)</strong> To run only unit tests:</p>
+<pre><code>npm run test -- --testPathIgnorePatterns=api
+</code></pre>
+<p><strong>3. After Running Tests</strong></p>
+<p>Stop the backend by hitting Ctrl+C in the terminal where the backend is running.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="JWTClient.html">JWTClient</a></li><li><a href="MemberDetails.html">MemberDetails</a></li><li><a href="ValueObject.html">ValueObject</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addToken">addToken</a></li><li><a href="global.html#clearAllSessions">clearAllSessions</a></li><li><a href="global.html#clearAllTokens">clearAllTokens</a></li><li><a href="global.html#clearToken">clearToken</a></li><li><a href="global.html#comparePassword">comparePassword</a></li><li><a href="global.html#countSessions">countSessions</a></li><li><a href="global.html#countTokens">countTokens</a></li><li><a href="global.html#decodeJWT">decodeJWT</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#getTokens">getTokens</a></li><li><a href="global.html">markAggregateForDispatch</a></li><li><a href="global.html#postLogin">postLogin</a></li><li><a href="global.html#sessionExists">sessionExists</a></li><li><a href="global.html#signJWT">signJWT</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Oct 09 2023 21:50:56 GMT+0100 (GMT+01:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
