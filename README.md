@@ -189,3 +189,15 @@ Examples of using the API (without authentication, using postman)
   **3. After Running Tests**
 
   Stop the backend by hitting Ctrl+C in the terminal where the backend is running.
+
+ **Documentation- What are the patterns used for distinguishing between Unit Tests and API tests**
+
+ API Testing
+ 
+ API testing is black-box testing aiming to test APIs and evaluate whether they meet the expectations in terms of performance, reliability, and security of an application.
+ In Unit Testing, the bugs are identified at the early stage while isolating a particular section. Every function is tested thoroughly to evaluate the precision of the code. It also helps the developers to understand the codebase to handle changes with finesse. Most importantly, it helps in code reusability.
+
+ Unit Testing
+ 
+ On the other hand, a unit test helps test a single module, which is the smallest piece of code like a method, routine, or subroutine.
+ API tests are executed after the build is ready, which is why defects are found if missed when developing software. Its main objective is to prevent defects and provide information about the quality standards. Most importantly, it is the imperative task of API testing to complement business and user requirements.
