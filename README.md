@@ -192,12 +192,11 @@ Examples of using the API (without authentication, using postman)
 
  **Documentation- What are the patterns used for distinguishing between Unit Tests and API tests**
 
- API Testing
- 
- API testing is black-box testing aiming to test APIs and evaluate whether they meet the expectations in terms of performance, reliability, and security of an application.
- In Unit Testing, the bugs are identified at the early stage while isolating a particular section. Every function is tested thoroughly to evaluate the precision of the code. It also helps the developers to understand the codebase to handle changes with finesse. Most importantly, it helps in code reusability.
+We use "--testPathIgnorePatterns=<api>" to run unit test becouse this command ignores all the tests that as "api" in the folder name.
+To run api tests we use --testPathPattern=<api> to only run tests with "api" in the folder name.
 
- Unit Testing
- 
- On the other hand, a unit test helps test a single module, which is the smallest piece of code like a method, routine, or subroutine.
- API tests are executed after the build is ready, which is why defects are found if missed when developing software. Its main objective is to prevent defects and provide information about the quality standards. Most importantly, it is the imperative task of API testing to complement business and user requirements.
+--testPathIgnorePatterns=<regex>
+A single or array of regexp pattern strings that are tested against all tests paths before executing the test. Contrary to --testPathPattern, it will only run those tests with a path that does not match with the provided regexp expressions.
+
+--testPathPattern=<regex>
+A regexp pattern string that is matched against all tests paths before executing the test. On Windows, you will need to use / as a path separator or escape \ as \\.
