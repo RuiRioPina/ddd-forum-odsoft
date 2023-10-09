@@ -40,5 +40,5 @@ task runApiTestsAndGenerateCoverageReport(type: NodeTask) {
 
 task docsGeneration(type: NodeTask) {
     script = file('node_modules/jsdoc/jsdoc.js')
-    args = ['-c', 'htmlreports/jsdoc.json']
+    args = ['-c', 'jsdoc.json']
 }
