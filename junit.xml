@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="14" failures="0" errors="0" time="4.457">
+  <testsuite name="src/shared/core/Guard.spec.ts" errors="0" failures="0" skipped="0" timestamp="2023-10-07T18:16:48" time="1.565" tests="9">
+    <testcase classname="guard &gt; combined results - knows that two successful results equates to success" name="guard &gt; combined results - knows that two successful results equates to success" time="0.009">
+    </testcase>
+    <testcase classname="guard &gt; combined results - knows that one success, one failure equates to overall failure" name="guard &gt; combined results - knows that one success, one failure equates to overall failure" time="0.003">
+    </testcase>
+    <testcase classname="guard &gt; against null or undefined - knows that value provided equates to success" name="guard &gt; against null or undefined - knows that value provided equates to success" time="0.001">
+    </testcase>
+    <testcase classname="guard &gt; against null or undefined - knows that null value equates to failure" name="guard &gt; against null or undefined - knows that null value equates to failure" time="0.001">
+    </testcase>
+    <testcase classname="guard &gt; against null or undefined - knows that undefined value equates to failure" name="guard &gt; against null or undefined - knows that undefined value equates to failure" time="0.001">
+    </testcase>
+    <testcase classname="guard &gt; against null or undefined - knows that empty string still equates to success" name="guard &gt; against null or undefined - knows that empty string still equates to success" time="0.001">
+    </testcase>
+    <testcase classname="guard &gt; against null or undefined bulk - knows that values provided equates to success" name="guard &gt; against null or undefined bulk - knows that values provided equates to success" time="0.001">
+    </testcase>
+    <testcase classname="guard &gt; against null or undefined bulk - knows that a single null value equates to failure" name="guard &gt; against null or undefined bulk - knows that a single null value equates to failure" time="0.001">
+    </testcase>
+    <testcase classname="guard &gt; against null or undefined bulk - knows that a single undefined value equates to failure" name="guard &gt; against null or undefined bulk - knows that a single undefined value equates to failure" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="src/modules/forum/domain/postSlug.spec.ts" errors="0" failures="0" skipped="0" timestamp="2023-10-07T18:16:48" time="3.072" tests="2">
+    <testcase classname=" - Should be able to create a post slug" name=" - Should be able to create a post slug" time="0.011">
+    </testcase>
+    <testcase classname=" - Should be able to parse out any bad characters not suitable for a slug" name=" - Should be able to parse out any bad characters not suitable for a slug" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="src/modules/forum/domain/services/postService.spec.ts" errors="0" failures="0" skipped="0" timestamp="2023-10-07T18:16:48" time="3.343" tests="3">
+    <testcase classname=" - Comments: Given one member, a downvote to a post without any votes should add one downvote" name=" - Comments: Given one member, a downvote to a post without any votes should add one downvote" time="0.027">
+    </testcase>
+    <testcase classname=" - Comments: Given one member, several downvotes to an already downvoted post should do nothing." name=" - Comments: Given one member, several downvotes to an already downvoted post should do nothing." time="0.016">
+    </testcase>
+    <testcase classname=" - Comments: Given one member, a downvote to a comment it already upvoted should merely remove the upvote and create no additional downvote" name=" - Comments: Given one member, a downvote to a comment it already upvoted should merely remove the upvote and create no additional downvote" time="0.008">
+    </testcase>
+  </testsuite>
+</testsuites>
