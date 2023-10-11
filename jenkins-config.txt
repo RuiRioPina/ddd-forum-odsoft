@@ -1,0 +1,154 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@5.2.0">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/RuiRioPina/ddd-forum-odsoft-NCF_5.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="empty-list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <com.cloudbees.jenkins.GitHubPushTrigger plugin="github@1.37.3">
+      <spec></spec>
+    </com.cloudbees.jenkins.GitHubPushTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <EnvInjectBuilder plugin="envinject@2.908.v66a_774b_31d93">
+      <info>
+        <propertiesContent>DDD_FORUM_IS_PRODUCTION=
+DDD_FORUM_APP_SECRET=defaultappsecret
+DDD_FORUM_REDIS_URL=localhost
+DDD_FORUM_REDIS_PORT=6379
+DDD_FORUM_DB_USER=tonysoprano
+DDD_FORUM_DB_PASS=12345678
+DDD_FORUM_DB_HOST=localhost
+DDD_FORUM_DB_DEV_DB_NAME=data_dev
+DDD_FORUM_DB_TEST_DB_NAME=data_test
+DDD_FORUM_DB_PROD_DB_NAME=data_prod
+</propertiesContent>
+      </info>
+    </EnvInjectBuilder>
+    <hudson.tasks.Shell>
+      <command>npm install --also=dev jest-junit</command>
+      <configuredLocalRules/>
+    </hudson.tasks.Shell>
+    <hudson.plugins.gradle.Gradle plugin="gradle@2.8.2">
+      <switches></switches>
+      <tasks>npm_install runUnitTestsAndGenerateCoverageReport</tasks>
+      <rootBuildScriptDir></rootBuildScriptDir>
+      <buildFile></buildFile>
+      <gradleName>Gradle</gradleName>
+      <useWrapper>false</useWrapper>
+      <makeExecutable>false</makeExecutable>
+      <useWorkspaceAsHome>false</useWorkspaceAsHome>
+      <wrapperLocation></wrapperLocation>
+      <passAllAsSystemProperties>false</passAllAsSystemProperties>
+      <projectProperties></projectProperties>
+      <passAllAsProjectProperties>false</passAllAsProjectProperties>
+    </hudson.plugins.gradle.Gradle>
+    <hudson.tasks.Shell>
+      <command>#!/usr/bin/env sh
+
+echo &apos;The following &quot;npm&quot; command builds your Node.js/React application for&apos;
+echo &apos;production in the local &quot;build&quot; directory (i.e. within the&apos;
+echo &apos;&quot;/var/jenkins_home/workspace/simple-node-js-react-app&quot; directory),&apos;
+echo &apos;correctly bundles React in production mode and optimizes the build for&apos;
+echo &apos;the best performance.&apos;
+
+docker-compose down
+docker-compose up -d
+
+pwd
+
+set -x
+npm run build
+echo $! &gt; .pidfile
+set +x
+
+echo &apos;The following &quot;npm&quot; command runs your Node.js/React application in&apos;
+echo &apos;development mode and makes the application available for web browsing.&apos;
+echo &apos;The &quot;npm start&quot; command has a trailing ampersand so that the command runs&apos;
+echo &apos;as a background process (i.e. asynchronously). Otherwise, this command&apos;
+echo &apos;can pause running builds of CI/CD applications indefinitely. &quot;npm start&quot;&apos;
+echo &apos;is followed by another command that retrieves the process ID (PID) value&apos;
+echo &apos;of the previously run process (i.e. &quot;npm start&quot;) and writes this value to&apos;
+echo &apos;the file &quot;.pidfile&quot;.&apos;
+set -x
+daemonize -E BUILD_ID=dontKillMe -c /home/ruipina/.jenkins/workspace/ddd-forum /home/ruipina/.nvm/versions/node/v12.22.12/bin/npm run start:dev &gt; daemonize.log 2&gt;&amp;1
+sleep 40
+echo $! &gt; .pidfile
+set +x
+
+npm run test:api
+echo $! &gt; .pidfile
+
+echo &apos;The following command terminates the &quot;npm start&quot; process using its PID&apos;
+echo &apos;(written to &quot;.pidfile&quot;), all of which were conducted when &quot;deliver.sh&quot;&apos;
+echo &apos;was executed.&apos;
+set -x
+kill $(cat .pidfile)
+
+docker-compose down
+
+echo &apos;Now...&apos;
+echo &apos;Visit http://localhost:3000 to see your Node.js/React application in action.&apos;
+echo &apos;(This is why you specified the &quot;args &apos;&apos;-p 3000:3000&apos;&apos;&quot; parameter when you&apos;
+echo &apos;created your initial Pipeline as a Jenkinsfile.)&apos;
+</command>
+      <configuredLocalRules/>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <htmlpublisher.HtmlPublisher plugin="htmlpublisher@1.32">
+      <reportTargets>
+        <htmlpublisher.HtmlPublisherTarget>
+          <reportName>JSDoc</reportName>
+          <reportDir>htmlreports/jsdoc</reportDir>
+          <reportFiles>index.html</reportFiles>
+          <alwaysLinkToLastBuild>false</alwaysLinkToLastBuild>
+          <reportTitles></reportTitles>
+          <keepAll>false</keepAll>
+          <allowMissing>false</allowMissing>
+          <includes>**/*</includes>
+          <escapeUnderscores>true</escapeUnderscores>
+          <useWrapperFileDirectly>true</useWrapperFileDirectly>
+        </htmlpublisher.HtmlPublisherTarget>
+      </reportTargets>
+    </htmlpublisher.HtmlPublisher>
+    <hudson.tasks.junit.JUnitResultArchiver plugin="junit@1240.vf9529b_881428">
+      <testResults>junit.xml</testResults>
+      <keepLongStdio>false</keepLongStdio>
+      <keepProperties>false</keepProperties>
+      <healthScaleFactor>1.0</healthScaleFactor>
+      <allowEmptyResults>false</allowEmptyResults>
+      <skipPublishingChecks>false</skipPublishingChecks>
+      <checksName></checksName>
+      <skipMarkingBuildUnstable>false</skipMarkingBuildUnstable>
+      <skipOldReports>false</skipOldReports>
+    </hudson.tasks.junit.JUnitResultArchiver>
+  </publishers>
+  <buildWrappers>
+    <jenkins.plugins.nodejs.NodeJSBuildWrapper plugin="nodejs@1.6.1">
+      <nodeJSInstallationName>NodeJS 12.22.12</nodeJSInstallationName>
+      <cacheLocationStrategy class="jenkins.plugins.nodejs.cache.DefaultCacheLocationLocator"/>
+    </jenkins.plugins.nodejs.NodeJSBuildWrapper>
+  </buildWrappers>
+</project>
