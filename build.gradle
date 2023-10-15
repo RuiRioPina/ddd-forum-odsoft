@@ -42,3 +42,12 @@ task docsGeneration(type: NodeTask) {
     script = file('node_modules/jsdoc/jsdoc.js')
     args = ['-c', 'jsdoc.json']
 }
+
+task generatePlantUml(type:Exec) {
+    workingDir 'bin/'
+    if (System.properties['os.name'].toLowerCase().contains('windows')) {
+        commandLine 'cmd', '/c', 'generate-plantuml-diagrams.bat'
+    } else {
+        commandLine './generate-plantuml-diagrams.sh'
+    }
+}
